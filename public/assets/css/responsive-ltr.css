@@ -1,0 +1,124 @@
+/* Extra small */
+@media(max-width: 576px)
+{
+    .login-page h1 span {
+        font-size: 20px
+    }
+
+    nav .nav-item {
+      text-align: center;
+    }
+    .sub-menu {
+      left: auto;
+      width: 90%;
+      position: relative;
+    }
+    .fixed-top {
+      position: static;
+    }
+
+    .carousel-first .carousel-item img {
+      height: 350px;
+    }
+    .carousel-section .carousel-item img {
+      height: 280px
+    }
+    .carousel-first .carousel-control {
+      top: 25%;
+    }
+    .carousel-section .carousel-control {
+      top: -50px;
+    }
+
+    .carousel-first .carousel-caption h3 {
+      font-size: 18px;
+    }
+    .article-info li {
+      font-size: 14px;
+    }
+
+    .right-side {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .aside-section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    footer ul {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .under-nav {
+      margin-top: 20px;
+    }
+
+    .comment-block .card::after {
+      right: 45%;
+      top: -35%;
+      border-right: 20px solid transparent;
+      border-left: 20px solid transparent;
+      border-bottom: 20px solid #f7f7f7;
+    }
+    .comment-block .card {
+      margin-top: 20px;
+    }
+
+    .card.profile {
+      margin-bottom: 30px;
+    }
+
+
+}
+
+@media(max-width: 767px)
+{
+    .login-page h1 span {
+        font-size: 20px
+    }
+    .main {
+      margin-top: 30px;
+    }
+    .card.profile {
+      margin-bottom: 30px;
+    }
+    .articles-section:nth-child(odd),
+    .articles-section:nth-child(even)
+    {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .aside-section .card-block .post-title {
+      padding-left: 20px;
+    }
+    footer {
+      padding-left: 15px;
+    }
+
+}
+
+@media(max-width: 420px) {
+  .article-page .article-info li {
+    margin: 0 4px;
+    font-size: 14px;
+  }
+  .article-page .card-footer .article-info li button {
+    font-size: 16px;
+  }
+}
+
+
+@media(max-width: 991px) AND (min-width: 575px) {
+  /*.aside-section .card-block .post-img img {
+    max-width: 50px;
+  }
+
+  .aside-section .card-block .post-title a {
+    font-size: 14px;
+  }*/
+  .card.profile {
+    margin-bottom: 30px;
+  }
+}
