@@ -1,5 +1,6 @@
 .tabls-img {
 	max-width: 50px;
+	display: block !important;
 } 
 
 .table-form { 

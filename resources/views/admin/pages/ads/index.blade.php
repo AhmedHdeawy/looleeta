@@ -50,9 +50,10 @@
                 </thead>
                 <tbody>
                 @foreach ($ads as $ad)
+
                     <tr>
                         <td>{{ $ad->ads_link }}</td>
-                        <td>{{ $ad->ads_img or '' }}</td>
+                        <td><img src="{{ asset('images/adverts/icWNB1511723631.png') }}" class="tabls-img"></td>
                         
                         <td>
                         	<a class="btn btn-success btn-sm" 
@@ -63,6 +64,7 @@
                         	{!! Form::open(['route' => ['ads.destroy', $ad->ads_id], 'method' => 'DELETE', 'class' => 'table-form']) !!}
 							    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm btn-delete']) !!}
 							{!! Form::close('') !!}
+
                         </td>
                     </tr>
                 @endforeach

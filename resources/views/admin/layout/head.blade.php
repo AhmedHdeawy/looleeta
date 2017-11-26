@@ -9,6 +9,9 @@
 
     <!-- Morris Charts CSS -->
     <link href="{{ asset('admin/css/plugins/morris.css') }}" rel="stylesheet">
+    
+    {{-- file input --}}
+    <link href="{{ asset('plugins/fileinput/fileinput.css') }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="{{ asset('admin/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">

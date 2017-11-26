@@ -29,7 +29,7 @@
  <div class="row">
     <div class="col-lg-6">
 
-    {!! Form::open(['route' => ['ads.store'], 'role' => 'form', 'file' => true]) !!}
+    {!! Form::open(['route' => ['ads.store'], 'role' => 'form', 'files' => true]) !!}
 
         @include('admin.pages.ads.form', [ 'btnName' => 'Create' ])
 

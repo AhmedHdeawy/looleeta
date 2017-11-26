@@ -26,10 +26,10 @@
     @endif
 </div>
 
-<div class="form-group {{ $errors->has('ads_img') ? 'has-danger' : '' }} col-md-12">
+<div class="form-group {{ $errors->has('ads_img') ? 'has-danger' : '' }}">
     <label>Image</label>
-    {!! Form::file('ads_img', null, 
-        ['class' => $errors->has('ads_img') ? 'form-control form-control-file' : 'form-control',  ]) 
+    {!! Form::file('ads_img', 
+        ['class' => $errors->has('ads_img') ? 'form-control form-control-file' : 'form-control', 'id' => 'adsImg' ]) 
     !!}
     @if ($errors->has('ads_img'))
         <div class="form-control-feedback">

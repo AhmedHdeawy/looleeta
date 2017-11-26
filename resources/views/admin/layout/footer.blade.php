@@ -16,4 +16,7 @@
 
     <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
 
+    <script src="{{ asset('plugins/fileinput/fileinput.min.js') }}"></script>
+    <script src="{{ asset('plugins/fileinput/themes/fa/theme.min.js') }}"></script>
+
     @include('admin.layout.script')

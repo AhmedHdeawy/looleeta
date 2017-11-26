@@ -30,7 +30,7 @@
     <div class="col-lg-6">
 
     {!! Form::model($ads, 
-        ['route' => ['ads.update', $ads->ads_id], 'method' => 'patch', 'role' => 'form', 'file' => true]) !!}
+        ['route' => ['ads.update', $ads->ads_id], 'method' => 'patch', 'role' => 'form', 'files' => true]) !!}
 
         @include('admin.pages.ads.form', [ 'btnName' => 'Edit' ])
 

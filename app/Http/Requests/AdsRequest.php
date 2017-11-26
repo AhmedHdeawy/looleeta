@@ -24,20 +24,20 @@ class AdsRequest extends FormRequest
      */
     public function rules()
     {
-
+        
         $rules = [
             'ads_link'  => 'required|min:2|max:40',
             'ads_type'       =>  'required',
             'ads_img'   =>  'required',
         ];
 
-        if(Request::get('ads_type') == 'lat') {
-            $rules['ads_img'] = 'required|dimensions:min_width=728,min_height=98'
-        }
+        // if(Request::get('ads_type') == 'lat') {
+        //     $rules['ads_img'] = 'required|dimensions:min_width=725,min_height=88';
+        // }
 
-        if(Request::get('ads_type') == 'lang') {
-            $rules['ads_img'] = 'required|dimensions:min_width=300,min_height=400'
-        }
+        // if(Request::get('ads_type') == 'lang') {
+        //     $rules['ads_img'] = 'required|dimensions:min_width=300,min_height=400';
+        // }
 
         
         return $rules;
