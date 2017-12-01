@@ -24,11 +24,16 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-
+        // dd($this->categories_id);
         $rules = [
-            'categories_name'  => 'required|min:2|max:40',
+            'categories_name'  => 'required|min:2|max:40|unique:categories',
             'parents_id'       =>  'required',
         ];
+
+        if($this->method('patch')) {
+            $rules['categories_name'] = 
+            'required|min:2|max:40|unique:categories,categories_name,'. $this->categories_id .',categories_id';
+        }
 
         
         return $rules;

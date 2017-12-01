@@ -25,7 +25,7 @@
                 @foreach ($categories as $category)
                   {{-- expr --}}
                   <li class="nav-item">
-                      <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink">
+                      <a class="nav-link" href="{{ route('category', $category->categories_slug) }}" id="navbarDropdownMenuLink">
                         {{ $category->categories_name }}
                       </a>
                   </li>
@@ -41,7 +41,7 @@
                         {{-- <button data-toggle="modal" data-target="#modelUserLogin" class="btn btn-custom btn-sm btn-br-100 btn-primary">
                             Login / Register <i class="fa fa-sign-in" aria-hidden="true"></i>
                         </button> --}}
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#modelUserLogin">Login</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#modelUserLogin">Log in</a>
                     </li>
                   @else
 
@@ -186,10 +186,18 @@
                         
                         <li class="col-md-3 sub-menu-item">
                             <ul class="sub-menu-menu">
-                              <li class="cat-title"><a href="#">{{ $category->categories_name }}</a></li>
+                              <li class="cat-title">
+                              <a href="{{ route('category', $category->categories_slug) }}">
+                                {{ $category->categories_name }}
+                                </a>
+                              </li>
                               @if ( $category->children )
                                 @foreach ($category->children as $children)
-                                  <li><a href="#">{{ $children->categories_name }}</a></li>
+                                  <li>
+                                    <a href="{{ route('category', $children->categories_slug) }}">
+                                      {{ $children->categories_name }}
+                                    </a>
+                                  </li>
                                 @endforeach
                               @endif
                               

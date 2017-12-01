@@ -22,9 +22,46 @@
             'showUpload':true, 
             'previewFileType':'any',
             'theme' :   'fa',
-            'showUpload' : false
-          });
-  });
+            'showUpload' : false,
+            'uploadAsync': false,
+            'overwriteInitial': true,
+            'initialPreview' : [
+              "{{ isset($ads->ads_img) ? asset('ads/'.$ads->ads_img) : '' }}"
+            ],
+            'initialPreviewAsData': true,
+            'initialPreviewFileType': 'image',
+    });
+
+
+
+
+
+/*=================== Show image in Modal ======================*/
+
+    var modal = $('#myModal');
+    var modalImg = $('#img01');
+    var captionText = $('#caption');
+
+    $('.imgModal').click(function(){
+
+        modal.css('display', 'block');
+        modalImg.attr('src', this.src);
+        captionText.html(this.alt);
+
+    });
+    
+
+    
+    modal.find('.close').click(function(){
+      modal.css('display', 'none');
+    });
+
+    /*=================== Show image in Modal / End ======================*/
+
+
+
+/*=================== jquery End ======================*/
+});
 
    
    var editor_config = {

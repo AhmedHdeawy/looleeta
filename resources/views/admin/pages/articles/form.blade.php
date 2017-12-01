@@ -1,5 +1,6 @@
 {!! Form::hidden('users_id', auth()->user()->id) !!}
 
+
 <div class="form-group {{ $errors->has('categories_id') ? 'has-danger' : '' }} col-md-12">
     <label class="col-md-12">Category</label>
     <div class="col-md-6">

@@ -53,7 +53,7 @@
 
                     <tr>
                         <td>{{ $ad->ads_link }}</td>
-                        <td><img src="{{ asset('images/adverts/icWNB1511723631.png') }}" class="tabls-img"></td>
+                        <td><img src="{{ asset('ads/'.$ad->ads_img) }}" class="tabls-img imgModal"></td>
                         
                         <td>
                         	<a class="btn btn-success btn-sm" 

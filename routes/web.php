@@ -13,8 +13,15 @@
 
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/article', 'HomeController@article')->name('article');
+
+Route::get('/article/{articles_slug}', 'HomeController@article')->name('article');
+Route::get('/like', 'HomeController@like')->name('like');
+
+
+Route::get('/category/{categories_slug}', 'HomeController@category')->name('category');
+
 Route::get('/profile', 'HomeController@profile')->name('profile');
+
 Route::get('/contact', 'HomeController@contact')->name('contact');
 
 Route::post('/login', 'AuthController@login')->name('login');
@@ -22,6 +29,14 @@ Route::post('/register', 'AuthController@register')->name('register');
 Route::get('logout', 'AuthController@logout')->name('logout');
 
 
+// Auth routes
+Route::group(['middleware' => 'auth'], function() {
+    // new comment
+    Route::post('addComment', 'HomeController@addComment')->name('addComment');
+    Route::post('editComment', 'HomeController@editComment')->name('editComment');
+});
+
+// Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['admin', 'role:admin|editor'] ], function() {
     
     // Home

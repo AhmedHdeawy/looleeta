@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Request;
 use App\Category;
+use App\Article;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
 
         $categoriesModal = Category::where('parents_id', null)->get();
 
-        view()->share(compact('urlSegments', 'categories', 'categoriesModal'));
+        $mostPopular = Article::withCount('comments')->orderBy('comments_count', 'desc')->take(5)->get();
+
+        view()->share(compact('urlSegments', 'categories', 'categoriesModal', 'mostPopular'));
         
     }
 

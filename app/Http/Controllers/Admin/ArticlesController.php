@@ -19,6 +19,14 @@ class ArticlesController extends Controller
      */
     public function index()
     {
+
+        // foreach (Article::get() as $article) {
+            
+        //     $article->articles_slug = $article->articles_id.'-'.str_slug($article->articles_title);
+        //     $article->save();
+        //     // dd($article);
+        // }
+
         $articles = Article::orderBy('articles_id', 'desc')->paginate(10);
         $categoriesSearch = Category::get();
 
@@ -33,7 +41,7 @@ class ArticlesController extends Controller
     public function create()
     {
         
-        $categories = Category::where('categories_id')->pluck('categories_name', 'categories_id');
+        $categories = Category::pluck('categories_name', 'categories_id');
         
         return view('admin.pages.articles.create', compact('categories'));
     }
@@ -46,11 +54,15 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        // dd($request->all());
+        
+        $request['articles_slug'] = ($this->lastIDWithIncreament()).'-'.str_slug($request->articles_title);
+        
         Article::create($request->all());
         
         return redirect()->route('articles.index');
     }
+
+    
 
     /**
      * Display the specified resource.
@@ -90,7 +102,8 @@ class ArticlesController extends Controller
     public function update(ArticleRequest $request, $id)
     {
         // dd($request->all());
-        
+        $request['articles_slug'] = $id.'-'.str_slug($request->articles_title);
+
         $article = Article::find($id)->update($request->all());
 
         return redirect()->route('articles.index');
@@ -144,5 +157,13 @@ class ArticlesController extends Controller
         
         return view('admin.pages.articles.index', compact('articles', 'categoriesSearch', 'data'));
 
+    }
+
+    /**
+     * get last article ID
+     */
+    public function lastIDWithIncreament()
+    {
+        return Article::orderBy('articles_id', 'desc')->value('articles_id') + 1;
     }
 }

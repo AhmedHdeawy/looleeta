@@ -64,7 +64,7 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td><img class="tabls-img" src="{{ $user->image ? asset('images/users/'.$user->image) : asset('images/users/default.jpg') }}"></td>
+                        <td><img class="tabls-img imgModal" src="{{ $user->image ? asset('images/users/'.$user->image) : asset('images/users/default.jpg') }}"></td>
                         <td>
                             @role('admin') 
                         	   

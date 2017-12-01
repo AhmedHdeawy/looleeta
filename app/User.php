@@ -6,6 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use App\Like;
+use App\Comment;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -50,6 +53,30 @@ class User extends Authenticatable
         // Store name in DB
         $this->attributes['image'] = $imageName;
         
+    }
+
+    public function isLike($articleID)
+    {
+        $isLike = Like::where('users_id', Auth::user()->id)->where('articles_id', $articleID)->count();
+        
+        if($isLike) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hisComment($commentID, $articleID)
+    {
+        $hisComment = Comment::where('comments_id', $commentID)
+                              ->where('users_id', Auth::user()->id)
+                              ->where('articles_id', $articleID)->count();
+        
+        if($hisComment) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     

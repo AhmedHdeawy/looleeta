@@ -28,7 +28,7 @@ class ArticleRequest extends FormRequest
 
         $rules = [
             'categories_id'     =>  'required',
-            'articles_title'    =>  'required|min:2|max:40',
+            'articles_title'    =>  'required|min:2|max:255',
             'articles_desc'     =>  'required|min:2',
             'articles_img'      =>  'required|image:png,jpg,jpeg,svg',
         ];

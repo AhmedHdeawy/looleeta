@@ -23,7 +23,7 @@ class Ads extends Model
         // Build a unique name for image
         $imageName = str_random(5) .time().'.'.$value->getClientOriginalExtension();
         // Store Image in path
-        $value->move(public_path('images/ads'), $imageName);
+        $value->move(public_path('ads'), $imageName);
 
         // Store name in DB
         $this->attributes['ads_img'] = $imageName;

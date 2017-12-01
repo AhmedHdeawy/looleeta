@@ -96,6 +96,21 @@
     footer {
       padding-left: 15px;
     }
+    .post-card {
+      margin-bottom: 30px
+    }
+    .post-card .post-card-footer .title, 
+    .post-card .post-card-footer .date, 
+    .post-card .post-card-footer .comments {
+      font-size: 0.6em
+    }
+    .post-card .post-card-header a {
+      font-family: 'Roboto', 'Montserrat', sans-serif  
+    }
+    .post-card .post-card-header a h2 {
+      font-size: 20px;
+    }
+    
 
 }
 

@@ -1,6 +1,13 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
+    $(".str-cut").each(function (i) {
+        var len = $(this).text().length;
+        if (len > 80) {
+            $(this).text($(this).text().substr(0, 200) + '......');
+        }
+    });
+
   // // Show SubMenu during hover
   // $('.subMenu').hover(function() {
   //   /* Stuff to do when the mouse enters the element */
@@ -79,7 +86,6 @@
             $(this).after('<span class="astrisc">*</span>');
         }
     });
-
 
 
 
@@ -182,7 +188,6 @@
     var form = $(this),
         link = form.attr('action'),
         data = new FormData($(this)[0]);
-        console.log(data);
 
         $.ajax({
 
@@ -232,4 +237,154 @@
 
   });
 
+</script>
+
+<script>
+
+{{--  Like with Ajax  --}}
+$(document).on('click', '.like-btn', function(){
+
+  var articleID = $(this).data('article'),
+      link = "{{ route('like') }}";
+
+  $.ajax({
+
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      method: 'GET',
+      dataType: 'JSON',
+      url: link,
+      data: {articleID: articleID},
+      context: $(this),
+      success: function(result){
+
+        if(result.auth) {
+          
+          $('#modelUserLogin').modal('show');
+        }
+        if(result.like) {
+          
+         $(this).addClass('liked');
+        }
+        if(result.dislike) {
+          $(this).removeClass('liked');
+        }
+        
+      }
+
+    });
+
+
+});
+
+
+
+{{--  add comment  --}}
+$(document).on('submit', '.comment-form', function(e){
+
+  e.preventDefault();
+  var form = $(this),
+      articleID   = form.find('input[name="articles_id"]').val(),
+      commentDesc = form.find('textarea').val(),
+      link = "{{ route('addComment') }}";
+      
+  $.ajax({
+
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      method: 'POST',
+      dataType: 'JSON',
+      url: link,
+      data: {articleID, commentDesc},
+      context: $(this),
+      success: function(result){
+
+        if(result.success) {
+          
+          var dateTime = result.dataTime,
+              userName = result.userName,
+              userImage = result.userImage,
+              commentText = result.commentText;
+          
+          $('.article-card-body').prepend(commentBox(userName, userImage, dateTime, commentText));
+        }
+        
+      }
+
+    });
+
+});
+
+
+
+{{--  edit comment  --}}
+$(document).on('submit', '.form-edit-comment', function(e){
+
+  e.preventDefault();
+  var form = $(this),
+      commentID   = form.find('input[name="comments_id"]').val(),
+      commentDesc = form.find('textarea').val(),
+      link = "{{ route('editComment') }}";
+      
+  $.ajax({
+
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      method: 'POST',
+      dataType: 'JSON',
+      url: link,
+      data: {commentID, commentDesc},
+      context: $(this),
+      success: function(result){
+
+        if(result.success) {
+          $('#editModal').modal('hide');
+          var dateTime = result.dataTime,
+              commentText = result.commentText,
+              commentBlock =  $('.article-card-body').find("[data-commentID='"+commentID+"']");
+
+              commentBlock.find('.card-block .card-text').text(commentText);
+              commentBlock.find('.card-header .comment-author small').text(dateTime);
+        }
+        
+      }
+
+    });
+
+});
+
+// function to append comment box
+function commentBox(userName, userImage, datetime, commentDesc){
+
+  $content = '<div class="row comment-block"><div class="col-sm-2"><div class="comment-thumbnail">                  <img class="img-responsive user-photo" src="'+userImage+'"></div></div><div class="col-sm-10">                  <div class="card"><div class="card-header"><span class="pull-left comment-author">'+userName+'<small>'+datetime+'</small></span><span class="pull-right"><button class="edit-comment btn-cursor btn-empty"><i class="fa fa-edit"></i></button></span></div><div class="card-block"><div class="card-text">'+commentDesc+'</div></div></div></div></div>';
+
+  return $content;
+
+}
+
+
+
+{{--  Edit comment  --}}
+$(document).on('click', '.edit-comment', function(e){
+
+    // Get value of comment
+    var commentText = $(this).parents('.comment-block').find('.card .card-block .card-text').text();
+
+    $('#editModal').find('textarea').val($.trim(commentText));
+    $('#editModal').find('input[type="hidden"]').val( $(this).data('comment') );
+
+    $('#editModal').modal('show');
+
+
+});
+
+
+// input focus after open modal
+$('#editModal').on('shown.bs.modal', function () {
+    $('#editModal').find('textarea').focus();
+})
+  
 </script>

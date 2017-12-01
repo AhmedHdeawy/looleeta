@@ -7,25 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 
 use App\Category;
-use Datatables;
 
 class CategoriesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('role:admin');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function datatables()
-    {
-        $categories = Category::all();
-        
-        return Datatables::of($categories)->make(true);
     }
 
     /**
@@ -61,11 +48,12 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         if($request->parents_id == 0) {
             $request['parents_id'] = null;
         }
+        $request['categories_slug'] = str_slug($request->categories_name);
 
         // dd($request->all());
         Category::create($request->all());
@@ -114,7 +102,8 @@ class CategoriesController extends Controller
         if($request->parents_id == 0) {
             $request['parents_id'] = null;
         }
-
+        $request['categories_slug'] = str_slug($request->categories_name);
+        
         $category = Category::find($id)->update($request->all());
 
         return redirect()->route('categories.index');

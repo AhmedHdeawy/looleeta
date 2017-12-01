@@ -33,7 +33,8 @@ body {
 
 .btn-custom {
   background-color: #149dcc !important;
-  border-color: #149dcc !important
+  border-color: #149dcc !important;
+  color: #FFF;
 }
 
 /* Navbar / Start */
@@ -129,8 +130,7 @@ nav .navbar-toggler i {
     font-weight: 600;
 }
 .profile-link {
-  padding-bottom: 0;
-  padding-top: 3px;
+  padding-top: 5px;
 }
 
 nav .nav-item:hover,
@@ -649,7 +649,12 @@ nav .btn-login span {
   cursor: pointer;
   font-size: 18px;
 }
-.article-page .card-footer .article-info li button:hover {
+.article-page .card-footer .article-info li button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+.article-page .card-footer .article-info li button:hover,
+.article-page .card-footer .article-info li button.liked {
   color: #149dcc
 }
 
@@ -686,6 +691,17 @@ nav .btn-login span {
   padding-left: 1.25rem;
   color: #194dcc
 }
+.comment-block .card-header button:hover {
+  color: #194dcc
+}
+.comment-block .card-header .comment-author {
+  font-size: 18px;
+}
+.comment-block .card-header small {
+  margin: 0 10px;
+  font-size: 14px;
+  color: #797777
+}
 
 .comment-block .comment-thumbnail {
   text-align: center;
@@ -694,6 +710,9 @@ nav .btn-login span {
 .comment-block .comment-thumbnail img {
   border-radius: 50%;
   max-width: 80px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid #DDD;
 }
 
 .comment-block .card::after{
@@ -803,6 +822,82 @@ nav .btn-login span {
 }
 
 /*=================== ARTICLE PAGE END ======================*/
+
+/*=================== CATEGORY PAGE  ======================*/
+.category-page {
+  background-color: #FFF;
+  margin-top: 80px;
+}
+.post-card {
+  background-color: #fafafa;
+}
+.post-card:last-child {
+  margin-bottom: 30px
+}
+.post-card-odd {
+  background-color: #FFF
+}
+.post-card .post-card-inner {
+  padding: 40px 30px;
+}
+.post-card .post-card-header a,
+.post-card .post-card-header a:hover {
+  color: #3e5062;
+  font-size: 25px;
+  line-height: 1.1em;
+  transition: all 0.3s;
+  font-family: "Open Sans",sans-serif;
+}
+.post-card .post-card-header a h2 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.post-card .post-card-desc {
+  color: #5a5a5a;
+  font-size: 14px !important;
+}
+.post-card .post-card-footer {
+  margin-top: 30px;
+}
+.post-card .post-card-footer .avatar {
+  max-width: 40px;
+  min-width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.post-card .post-card-footer .title,
+.post-card .post-card-footer .date,
+.post-card .post-card-footer .comments {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #999
+}
+.post-card .post-card-footer .title::after,
+.post-card .post-card-footer .date::after {
+  content: '|';
+  display: inline-block;
+  margin: 0 7px;
+  font-size: 0.9em;
+  color: #ccc;
+}
+.post-card .post-card-footer i {
+  margin-right: 5px;
+}
+
+.post-card .post-card-image {
+  max-height: 200px;
+  width: auto;
+  overflow: hidden;
+  padding: 0;
+}
+.post-card .post-card-image img {
+  height: 100%
+}
+
+
+/*=================== CATEGORY PAGE END ======================*/
 
 /*=================== Profile PAGE Start ======================*/
 .card.profile {
@@ -1028,7 +1123,7 @@ nav .btn-login span {
 /*==== Footer ======*/
 
 footer {
-  margin-top: 30px;
+  
   background-color: #000;
   padding-top: 20px;
   padding-bottom: 10px;
@@ -1067,7 +1162,7 @@ footer li a i {
 /*================ Framework ==============================*/
 
 @media (min-width: 1200px) {
-  .container {
+  .main .container {
     max-width: 1020px;
   }
   nav .container {
@@ -1102,6 +1197,18 @@ footer li a i {
 
 .main-color {
     color: #3E5062;
+}
+.btn-empty {
+  background-color: transparent;
+  border: 0;
+  color: #3e5062
+}
+.btn-empty:focus {
+  outline: 0;
+  box-shadow: none
+}
+.btn-cursor {
+  cursor: pointer;
 }
 
 .article-info {

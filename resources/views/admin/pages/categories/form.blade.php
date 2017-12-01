@@ -1,5 +1,5 @@
 
-{!! Form::hidden('id', null) !!}
+{!! Form::hidden('categories_id', null) !!}
 
 <div class="form-group {{ $errors->has('categories_name') ? 'has-danger' : '' }} ">
     <label>Name</label>

@@ -31,6 +31,10 @@ class AdsRequest extends FormRequest
             'ads_img'   =>  'required',
         ];
 
+        if($this->method('PATCH')) {
+          $rules['ads_img'] = '';  
+        }
+
         // if(Request::get('ads_type') == 'lat') {
         //     $rules['ads_img'] = 'required|dimensions:min_width=725,min_height=88';
         // }
