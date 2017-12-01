@@ -67,4 +67,8 @@
     <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }} "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('plugins/fileinput/fileinput.min.js') }}"></script>
+    <script src="{{ asset('plugins/fileinput/themes/fa/theme.min.js') }}"></script>
+
     @include('front.layout.script')

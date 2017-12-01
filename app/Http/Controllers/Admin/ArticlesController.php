@@ -20,13 +20,6 @@ class ArticlesController extends Controller
     public function index()
     {
 
-        // foreach (Article::get() as $article) {
-            
-        //     $article->articles_slug = $article->articles_id.'-'.str_slug($article->articles_title);
-        //     $article->save();
-        //     // dd($article);
-        // }
-
         $articles = Article::orderBy('articles_id', 'desc')->paginate(10);
         $categoriesSearch = Category::get();
 

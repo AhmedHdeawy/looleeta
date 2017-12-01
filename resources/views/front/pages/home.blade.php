@@ -40,7 +40,7 @@
                    <p>
                      <ul class="article-info">
                        <li><i class="fa fa-user "></i> {{ $article->user->name }} </li>
-                       <li><i class="fa fa-thumbs-up "></i> 312</li>
+                       <li><i class="fa fa-thumbs-up "></i> {{ $article->likes->count() }}</li>
                        <li><i class="fa fa-comment "></i> {{ $article->comments->count() }}</li>
                      </ul>
                    </p>
@@ -95,7 +95,7 @@
                                   <p>
                                     <ul class="article-info">
                                       <li><i class="fa fa-user "></i> {{ $article->user->name }}</li>
-                                      <li><i class="fa fa-thumbs-up "></i> 312</li>
+                                      <li><i class="fa fa-thumbs-up "></i> {{ $article->likes->count() }}</li>
                                       <li><i class="fa fa-comment "></i>{{ $article->comments->count() }}</li>
                                     </ul>
                                   </p>
@@ -153,7 +153,7 @@
                                     <p>
                                       <ul class="article-info">
                                         <li><i class="fa fa-user "></i> {{ $article->user->name }}</li>
-                                        <li><i class="fa fa-thumbs-up "></i> 312</li>
+                                        <li><i class="fa fa-thumbs-up "></i> {{ $article->likes->count() }}</li>
                                         <li><i class="fa fa-comment "></i>{{ $article->comments->count() }}</li>
                                       </ul>
                                     </p>
@@ -212,7 +212,7 @@
                                     <p>
                                       <ul class="article-info">
                                         <li><i class="fa fa-user "></i> {{ $article->user->name }}</li>
-                                        <li><i class="fa fa-thumbs-up "></i> 312</li>
+                                        <li><i class="fa fa-thumbs-up "></i> {{ $article->likes->count() }}</li>
                                         <li><i class="fa fa-comment "></i>{{ $article->comments->count() }}</li>
                                       </ul>
                                     </p>
@@ -271,7 +271,7 @@
                                     <p>
                                       <ul class="article-info">
                                         <li><i class="fa fa-user "></i> {{ $article->user->name }}</li>
-                                        <li><i class="fa fa-thumbs-up "></i> 312</li>
+                                        <li><i class="fa fa-thumbs-up "></i> {{ $article->likes->count() }}</li>
                                         <li><i class="fa fa-comment "></i>{{ $article->comments->count() }}</li>
                                       </ul>
                                     </p>

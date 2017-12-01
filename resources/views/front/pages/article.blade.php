@@ -10,7 +10,7 @@
       <div class="container">
 
         <div class="add-post">
-            <a href="#" class="btn btn-custom btn-primary"> <i class="fa fa-plus-circle"></i> Add Article</a>
+            <a href="{{ route('addArticle') }}" class="btn btn-custom btn-primary"> <i class="fa fa-plus-circle"></i> Add Article</a>
         </div>
 
         <div class="row">
@@ -39,6 +39,18 @@
                           {{ \Carbon\Carbon::createFromTimeStamp(strtotime($article->created_at))->toDateString() }}
                         </span>
                       </li>
+                      @if (auth()->check() && auth()->user()->hisArticle($article->articles_id))
+                        {{-- expr --}}
+                        <a href="{{ route('editArticle', $article->articles_id) }}" class="pull-right pt-0 btn btn-empty">
+                          <i class="fa fa-edit"></i>
+                        </a>
+
+                        <a href="{{ route('deleteArticle', $article->articles_id) }}" 
+                          class="pull-right pt-0 btn btn-empty"
+                          onclick="return confirm('Are you sure');">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                      @endif
                     </ul>
                 </h3>
                 <div class="card-block article-card-body">

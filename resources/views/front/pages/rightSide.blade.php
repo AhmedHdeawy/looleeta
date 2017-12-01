@@ -5,13 +5,15 @@
           <div class="card search">
             <h3 class="card-header">Search</h3>
             <div class="card-block">
-
-              <div class="input-group">
-               <input type="text" class="form-control" placeholder="Search for...">
-               <span class="input-group-btn">
-                 <button class="btn btn-danger" type="button"><i class="fa fa-search"></i></button>
-               </span>
-             </div>
+              <form action="{{ route('searchArticle') }}" method="get">
+                
+                <div class="input-group">
+                 <input type="text" class="form-control" name="q" placeholder="Search for...">
+                 <span class="input-group-btn">
+                   <button class="btn btn-danger" type="submit"><i class="fa fa-search"></i></button>
+                 </span>
+               </div>
+              </form>
 
             </div>
           </div>

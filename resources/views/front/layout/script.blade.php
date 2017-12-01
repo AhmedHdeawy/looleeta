@@ -374,30 +374,34 @@ $(document).on('submit', '.form-edit-comment', function(e){
 {{--  delete comment  --}}
 $(document).on('click', '.delete-comment', function(){
 
-  
-  var btn = $(this),
-      commentID   = btn.data('comment'),
-      link = "{{ route('deleteComment') }}";
-      
-  $.ajax({
-
-      headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      method: 'POST',
-      dataType: 'JSON',
-      url: link,
-      data: {commentID},
-      context: $(this),
-      success: function(result){
-
-        if(result.success) {
-          $(this).parents('.comment-block').fadeOut(300);
-        }
+  var decision = confirm('Are you sure ?');
+  if(decision) {
+    
+    var btn = $(this),
+        commentID   = btn.data('comment'),
+        link = "{{ route('deleteComment') }}";
         
-      }
+    $.ajax({
 
-    });
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        dataType: 'JSON',
+        url: link,
+        data: {commentID},
+        context: $(this),
+        success: function(result){
+
+          if(result.success) {
+            $(this).parents('.comment-block').fadeOut(300);
+          }
+          
+        }
+
+      });
+  }
+  
 
 });
 
@@ -421,4 +425,46 @@ $('#editModal').on('shown.bs.modal', function () {
     $('#editModal').find('textarea').focus();
 })
   
+</script>
+
+<script>
+      
+    // File Input
+    $("#artImg").fileinput({
+            'showUpload':true, 
+            'previewFileType':'any',
+            'theme' :   'fa',
+            'showUpload' : false,
+            'uploadAsync': false,
+            'overwriteInitial': true,
+            'initialPreview' : [
+              "{{ isset($article->articles_img) ? asset('images/articles/'.$article->articles_img) : "" }}"
+            ],
+            'initialPreviewAsData': true,
+            'initialPreviewFileType': 'image',
+    });
+
+
+     var editor_config = {
+        path_absolute : "/",
+        selector: ".text-tinymce",
+        height: 300,
+        plugins: [
+          "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+          "searchreplace wordcount visualblocks visualchars code fullscreen",
+          "insertdatetime media nonbreaking save table contextmenu directionality",
+          "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+        relative_urls: false,
+        file_browser_callback: function(field_name, url, type, win) {
+            // trigger file upload form
+            if (type == 'image') $('#formUpload input').click();
+        }
+        
+      };
+
+      tinymce.init(editor_config);
+
+
 </script>

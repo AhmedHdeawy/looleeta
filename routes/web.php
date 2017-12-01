@@ -15,6 +15,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/article/{articles_slug}', 'HomeController@article')->name('article');
+Route::get('searchArticle', 'HomeController@searchArticle')->name('searchArticle');
 Route::get('/like', 'HomeController@like')->name('like');
 
 
@@ -35,6 +36,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('addComment', 'HomeController@addComment')->name('addComment');
     Route::post('editComment', 'HomeController@editComment')->name('editComment');
     Route::post('deleteComment', 'HomeController@deleteComment')->name('deleteComment');
+
+    Route::get('addArticle', 'HomeController@addArticle')->name('addArticle');
+    Route::get('editArticle/{id}', 'HomeController@editArticle')->name('editArticle');
+    Route::post('storeArticle', 'HomeController@storeArticle')->name('storeArticle');
+    Route::post('updateArticle/{id}', 'HomeController@updateArticle')->name('updateArticle');
+    Route::get('deleteArticle/{id}', 'HomeController@deleteArticle')->name('deleteArticle');
 });
 
 // Dashboard routes

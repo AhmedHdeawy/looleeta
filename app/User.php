@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Like;
 use App\Comment;
+use App\Article;
 use Auth;
 
 class User extends Authenticatable
@@ -73,6 +74,18 @@ class User extends Authenticatable
                               ->where('articles_id', $articleID)->count();
         
         if($hisComment) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hisArticle($articleID) 
+    {
+        $hisArticle = Article::where('users_id', Auth::user()->id)
+                               ->where('articles_id', $articleID)->count();
+        
+        if($hisArticle) {
             return true;
         } else {
             return false;

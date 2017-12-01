@@ -1,12 +1,15 @@
 @extends('front.master')
-@section('title', $category->categories_name)
+@section('title', isset($category) ? $category->categories_name : 'search')
 @section('content')
 <!-- Article Start -->
 <div class="article-page under-nav category-page">
   <div class="container">
     
     <div class="add-post">
-      <a href="#" class="btn btn-custom btn-primary"> <i class="fa fa-plus-circle"></i> Add Article</a>
+      <a href="{{ route('addArticle') }}" class="btn btn-custom btn-primary"> 
+        <i class="fa fa-plus-circle"></i> 
+        Add Article
+      </a>
     </div>
     <?php $i = 0; ?>
     @forelse ($articles as $article)

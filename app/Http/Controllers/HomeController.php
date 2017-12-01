@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 use Auth;
 
 use App\Category;
@@ -14,15 +15,6 @@ use App\Like;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth', ['except' => ['index', 'article']]);
-    // }
 
     /**
      * Show the application dashboard.
@@ -31,9 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      
-         // dd(auth()->user()->name);
-        
+              
         $sliderArticles = Article::limit(5)->orderBy('articles_id', 'desc')->get();
         
 
@@ -73,13 +63,122 @@ class HomeController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addArticle()
+    {
+        $categoriesBluck = Category::pluck('categories_name', 'categories_id');
+        
+        return view('front.pages.addArticle', compact('categoriesBluck'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeArticle(ArticleRequest $request)
+    {
+        
+        $request['articles_slug'] = ($this->lastIDWithIncreament()).'-'.str_slug($request->articles_title);
+        
+        $article = Article::create($request->all());
+        
+        return redirect()->route('article', $article->articles_slug);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editArticle($id)
+    {
+        $article = Article::where('articles_id', $id)->where('users_id', auth()->user()->id)->first();
+        
+        if($article) {
+
+            $categoriesBluck = Category::pluck('categories_name', 'categories_id');
+
+            return view('front.pages.editArticle', compact('article', 'categoriesBluck'));
+
+        } else {
+            return abort(404);
+        }
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateArticle(ArticleRequest $request, $id)
+    {
+        // dd($request->all());
+        $request['articles_slug'] = $id.'-'.str_slug($request->articles_title);
+
+        Article::find($id)->update($request->all());
+
+        $article = Article::find($id);
+
+        return redirect()->route('article', $article->articles_slug);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteArticle($id)
+    {
+        $article = Article::where('articles_id', $id)->where('users_id', auth()->user()->id)->first();
+        
+        if($article) {
+
+            $article->delete();
+            return redirect()->route('home');
+
+        } else {
+            return abort(404);
+        }
+
+    }
+
+    /**
+    *   Show Article Page
+    */
+    public function searchArticle(Request $request)
+    {
+
+        $articles = Article::where('articles_title', 'like', '%'.$request->q.'%')->paginate(10);
+        
+        return view('front.pages.category', compact('articles'));
+    }
+
+    /**
+     * get last article ID
+     */
+    public function lastIDWithIncreament()
+    {
+        return Article::orderBy('articles_id', 'desc')->value('articles_id') + 1;
+    }
+
+    /**
     *   Show Category Page
     */
     public function category(Request $request, $categories_slug)
     {
         $category = Category::where('categories_slug', $categories_slug)->first();
         
-        $articles = $category->articles()->paginate(10);
+        $articles = $category->articles()->orderBy('articles_id', 'desc')->paginate(10);
         
         
         return view('front.pages.category', compact('category', 'articles'));
