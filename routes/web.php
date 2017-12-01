@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
     // new comment
     Route::post('addComment', 'HomeController@addComment')->name('addComment');
     Route::post('editComment', 'HomeController@editComment')->name('editComment');
+    Route::post('deleteComment', 'HomeController@deleteComment')->name('deleteComment');
 });
 
 // Dashboard routes

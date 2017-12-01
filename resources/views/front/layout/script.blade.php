@@ -306,9 +306,10 @@ $(document).on('submit', '.comment-form', function(e){
           var dateTime = result.dataTime,
               userName = result.userName,
               userImage = result.userImage,
-              commentText = result.commentText;
+              commentText = result.commentText,
+              commentID = result.commentID;
           
-          $('.article-card-body').prepend(commentBox(userName, userImage, dateTime, commentText));
+          $('.article-card-body').prepend(commentBox(userName, userImage, dateTime, commentText, commentID));
         }
         
       }
@@ -317,7 +318,19 @@ $(document).on('submit', '.comment-form', function(e){
 
 });
 
+{{--  open Modal for Edit comment  --}}
+$(document).on('click', '.edit-comment', function(e){
 
+    // Get value of comment
+    var commentText = $(this).parents('.comment-block').find('.card .card-block .card-text').text();
+
+    $('#editModal').find('textarea').val($.trim(commentText));
+    $('#editModal').find('input[type="hidden"]').val( $(this).data('comment') );
+
+    $('#editModal').modal('show');
+
+
+});
 
 {{--  edit comment  --}}
 $(document).on('submit', '.form-edit-comment', function(e){
@@ -356,10 +369,43 @@ $(document).on('submit', '.form-edit-comment', function(e){
 
 });
 
-// function to append comment box
-function commentBox(userName, userImage, datetime, commentDesc){
 
-  $content = '<div class="row comment-block"><div class="col-sm-2"><div class="comment-thumbnail">                  <img class="img-responsive user-photo" src="'+userImage+'"></div></div><div class="col-sm-10">                  <div class="card"><div class="card-header"><span class="pull-left comment-author">'+userName+'<small>'+datetime+'</small></span><span class="pull-right"><button class="edit-comment btn-cursor btn-empty"><i class="fa fa-edit"></i></button></span></div><div class="card-block"><div class="card-text">'+commentDesc+'</div></div></div></div></div>';
+
+{{--  delete comment  --}}
+$(document).on('click', '.delete-comment', function(){
+
+  
+  var btn = $(this),
+      commentID   = btn.data('comment'),
+      link = "{{ route('deleteComment') }}";
+      
+  $.ajax({
+
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      method: 'POST',
+      dataType: 'JSON',
+      url: link,
+      data: {commentID},
+      context: $(this),
+      success: function(result){
+
+        if(result.success) {
+          $(this).parents('.comment-block').fadeOut(300);
+        }
+        
+      }
+
+    });
+
+});
+
+
+// function to append comment box
+function commentBox(userName, userImage, datetime, commentDesc, commentID){
+
+  $content = '<div class="row comment-block" data-commentID="'+commentID+'"><div class="col-sm-2"><div class="comment-thumbnail">                  <img class="img-responsive user-photo" src="'+userImage+'"></div></div><div class="col-sm-10">                  <div class="card"><div class="card-header"><span class="pull-left comment-author">'+userName+'<small>'+datetime+'</small></span><span class="pull-right"><button data-comment="'+commentID+'" class="edit-comment btn-cursor btn-empty"><i class="fa fa-edit"></i></button></span><span class="pull-right mx-2"><button data-comment="'+commentID+'" class="delete-comment btn-cursor btn-empty"><i class="fa fa-trash"></i></button></span></div><div class="card-block"><div class="card-text">'+commentDesc+'</div></div></div></div></div>';
 
   return $content;
 
@@ -367,19 +413,7 @@ function commentBox(userName, userImage, datetime, commentDesc){
 
 
 
-{{--  Edit comment  --}}
-$(document).on('click', '.edit-comment', function(e){
 
-    // Get value of comment
-    var commentText = $(this).parents('.comment-block').find('.card .card-block .card-text').text();
-
-    $('#editModal').find('textarea').val($.trim(commentText));
-    $('#editModal').find('input[type="hidden"]').val( $(this).data('comment') );
-
-    $('#editModal').modal('show');
-
-
-});
 
 
 // input focus after open modal

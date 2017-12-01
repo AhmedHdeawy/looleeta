@@ -151,6 +151,7 @@ class HomeController extends Controller
             $userName = $newComment->user->name;
             $userImage = asset('images/users/'.$newComment->user->image);
             $commentText = $newComment->comments_desc;
+            $commentID = $newComment->comments_id;
 
                 return response()->json([
                         'success' => 'commented', 
@@ -158,6 +159,7 @@ class HomeController extends Controller
                         'userName'  => $userName,
                         'userImage' => $userImage,
                         'commentText' => $commentText,
+                        'commentID' =>  $commentID,
                         ]);
 
             } else {
@@ -199,6 +201,35 @@ class HomeController extends Controller
                         'success' => 'commented', 
                         'dataTime' => $dateTime,
                         'commentText' => $commentText,
+                        ]);
+
+            } else {
+
+                return abort(403);
+            }
+
+            return response()->json(['error' => 'errors happened']);
+            
+            
+        }
+    }
+
+    /**
+     * delete comment 
+     * @param  Request $request [IDs]
+     */
+    public function deleteComment(Request $request)
+    {
+        if($request->ajax()) {
+
+            if(Auth::check()) {
+                
+                $commentID = $request->commentID;
+                
+                $newComment = Comment::find($commentID)->delete();
+
+                return response()->json([
+                        'success' => 'deleted',
                         ]);
 
             } else {
